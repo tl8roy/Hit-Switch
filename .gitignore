@@ -41,3 +41,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/nbproject/
+/vendor/
+/app/cache/
+/app/logs/
+/web/bundles/
