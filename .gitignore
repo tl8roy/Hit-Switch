@@ -46,3 +46,8 @@ Temporary Items
 /app/cache/
 /app/logs/
 /web/bundles/
+composer.lock
+app/config/parameters_local.yml
+web/config.php
+web/app_dev.php
+web/app_dev.php
