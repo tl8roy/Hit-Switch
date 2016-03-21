@@ -1,0 +1,4 @@
+services:
+    a0_user_provider:
+        class: FrontendAdminBundle\Security\A0UserProvider
+        arguments: ["@jwt_auth.auth0_service", "@doctrine"]

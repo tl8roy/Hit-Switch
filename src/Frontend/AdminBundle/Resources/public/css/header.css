@@ -1,0 +1,143 @@
+header {
+	background-color: #292c2f;
+	box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.15);
+	padding: 20px 40px;
+	height: 80px;
+	box-sizing: border-box;
+}
+
+header div.header-limiter {
+	max-width: 1200px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+/* Logo */
+
+header div.header-limiter h1 {
+	float: left;
+	font: normal 28px Helvetica, sans-serif;
+	line-height: 40px;
+	margin: 0;
+}
+
+header div.header-limiter h1 span {
+	color: #5383d3;
+}
+
+/* The header links */
+
+header div.header-limiter a {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+header div.header-limiter nav{
+	font:16px Arial, Helvetica, sans-serif;
+	line-height: 40px;
+	float: right;
+}
+
+header div.header-limiter nav ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+header div.header-limiter nav ul li a{
+	display: inline-block;
+	padding: 0 5px;
+	text-decoration:none;
+	color: #ffffff;
+	font-size: 16px;
+	opacity: 0.9;
+}
+
+header div.header-limiter nav ul li{ 
+    display: inline; 
+}
+
+header div.header-limiter nav ul li a:hover{
+	opacity: 1;
+}
+
+header div.header-limiter nav ul li a.selected {
+	color: #608bd2;
+	pointer-events: none;
+	opacity: 1;
+}
+
+@media (max-width: 48em) {
+    
+    header {
+            padding: 20px 0;
+            height: 75px;
+    }
+
+    header div.header-limiter h1 {
+            float: none;
+            margin: -8px 0 10px;
+            text-align: center;
+            font-size: 24px;
+            line-height: 1;
+    }
+
+    header div.header-limiter nav {
+            line-height: 1;
+            float:none;
+    }
+
+    header div.header-limiter nav  ul li a {
+            font-size: 13px;
+    }
+}
+
+/*! responsive-nav.js 1.0.39 by @viljamis */
+
+.nav-collapse ul {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: block;
+  list-style: none;
+}
+
+.nav-collapse li {
+  width: 100%;
+  display: block;
+}
+
+.js .nav-collapse {
+  clip: rect(0 0 0 0);
+  max-height: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  zoom: 1;
+}
+
+.nav-collapse.opened {
+  max-height: 9999px;
+}
+
+.nav-toggle {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+@media screen and (min-width: 40em) {
+  .js .nav-collapse {
+    position: relative;
+  }
+  .js .nav-collapse.closed {
+    max-height: none;
+  }
+  .nav-toggle {
+    display: none;
+  }
+}

@@ -1,24 +1,36 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/book/security.html
-security:
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+security:
     providers:
-        in_memory:
-            memory: ~
+        hwi:
+            id: hwi_oauth.user.provider.entity
+
+    role_hierarchy:
+        ROLE_CMS_ADMIN: ROLE_OAUTH_USER
+        ROLE_ADMIN:     ROLE_CMS_ADMIN
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
+        
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        main:
+        
+        secured_area:
             anonymous: ~
-            # activate different ways to authenticate
+            oauth:
+                resource_owners:
+                    auth0: "/auth0/callback"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+                oauth_user_provider:
+                    service: hwi_oauth.user.provider.entity
 
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_OAUTH_USER }
+        - { path: ^/admin/settings, roles: ROLE_ADMIN }
+        - { path: ^/edit, roles: ROLE_CMS_ADMIN }
+        - { path: ^/[0-9A-Za-z]+, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+

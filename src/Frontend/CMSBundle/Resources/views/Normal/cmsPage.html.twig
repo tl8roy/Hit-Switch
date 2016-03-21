@@ -1,0 +1,21 @@
+{% extends "RewardsBundle::layout.html.twig" %}
+{% block title %}{{cmspage.name|capitalize}} - Everywhere Rewards{% endblock %}
+
+{% use 'CMSBundle::Normal/edit.html.twig' %}
+
+{% block content %}  
+    <div class="content-inner">
+        
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="error">{{flashMessage}}</div>
+        {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="success">{{flashMessage}}</div>
+        {% endfor %}
+        
+        <div class="content-one" data-editable data-name="content">
+            {{cmspage.content|raw}}
+        </div>    
+    </div>
+{% endblock %}

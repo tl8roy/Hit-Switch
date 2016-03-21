@@ -1,1 +1,26 @@
 
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login
+
+auth0_login:
+    pattern: /auth0/callback
+
+frontend_admin:
+    resource: "@FrontendAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+backend_api:
+    resource: "@BackendAPIBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+frontend_cms:
+    resource: "@FrontendCMSBundle/Controller/"
+    type:     annotation
+    prefix:   /

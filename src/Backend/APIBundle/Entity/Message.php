@@ -1,0 +1,154 @@
+<?php
+
+namespace Backend\APIBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Message
+ *
+ * @ORM\Table(name="message")
+ * @ORM\Entity(repositoryClass="Backend\APIBundle\Repository\MessageRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Message
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_modified", type="datetime")
+     */
+    private $dateModified;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Device",inversedBy="messages")
+     */
+    private $device;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="MessageLevel")
+     */
+    private $messagesLevel;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Action")
+     */
+    private $actions;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=255, unique=true)
+     */
+    private $token;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="token_expiry", type="datetime")
+     */
+    private $tokenExpiry;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_last_access", type="datetime")
+     */
+    private $dateLastAccess;
+
+    /**
+    * @ORM\PreUpdate
+    */
+    public function setModified()
+    {
+        $this->dateModified = new \DateTime();      
+    }
+    
+    public function resetToken($length,$hours){
+        
+        $this->tokenExpiry = new \DateTime();
+        $this->tokenExpiry->add(new \DateInterval('PT'.$hours.'H'));
+        
+        $this->token = str_replace(array('+','=','/'),'',base64_encode(random_bytes($length)));
+        
+        return $this;
+    }
+    
+    public function serialize(){
+        return array($this->messagesLevel->getCode() => $this->token); 
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dateModified
+     *
+     * @param \DateTime $dateModified
+     * @return Message
+     */
+    public function setDateModified($dateModified)
+    {
+        $this->dateModified = $dateModified;
+
+        return $this;
+    }
+
+    /**
+     * Get dateModified
+     *
+     * @return \DateTime 
+     */
+    public function getDateModified()
+    {
+        return $this->dateModified;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Message
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+   
+}

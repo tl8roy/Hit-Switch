@@ -1,0 +1,15 @@
+{% block head %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <link href="{{ asset("bundles/cms/css/content-tools.min.css") }}" rel="stylesheet" type="text/css"/>
+    {% endif %}
+{% endblock %}
+{% block foot %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <script type="text/javascript" src="{{ asset("bundles/cms/js/content-tools.min.js") }}"></script>
+        <script type="text/javascript" src="{{ asset("bundles/cms/js/editor.js") }}"></script>
+        <script type="text/javascript" >
+            var urlSlug = '/edit/{{cmspage.name}}';
+        </script>       
+    {% endif %}
+  
+{% endblock %}

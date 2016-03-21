@@ -9,3 +9,13 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: %hitswitch.secret%
+    auth0_url: https://tl8.au.auth0.com
+    auth0_client_id: %hitswitch.auth0_client_id%
+    auth0_client_secret: %hitswitch.auth0_client_secret%
+    token_length: 180
+    token_expiry: 8
+    rate_limit: 60
+    reset_token_code: refresh
+    admins:
+        facebook:
+            - "myfacebook.id"
