@@ -4,14 +4,4 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-
-services:
-    hwi_oauth.user.provider.entity:
-        class: Frontend\AdminBundle\Provider\A0UserProvider
-        arguments: [@session, @doctrine, @admin.checker, @request_stack]
-    admin.checker:
-        class: Frontend\AdminBundle\Security\AdminChecker
-        arguments: [@doctrine, %admins%]
+    

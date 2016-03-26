@@ -39,6 +39,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        auth0_domain: %auth0_domain%
+        auth0_client_id: %auth0_client_id%
 
 # Doctrine Configuration
 doctrine:

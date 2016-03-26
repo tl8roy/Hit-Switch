@@ -46,14 +46,14 @@ class Device
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_validated", type="datetime")
+     * @ORM\Column(name="date_validated", type="datetime",nullable=true)
      */
     private $dateValidated;
     
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_last_access", type="datetime")
+     * @ORM\Column(name="date_last_access", type="datetime",nullable=true)
      */
     private $dateLastAccess;
     
@@ -81,6 +81,32 @@ class Device
      */
     public function getMessageWithCode($code,$current = true)
     {
+    }
+    
+    public function resetKey($length){
+        
+        $this->key = str_replace(array('+','=','/'),'',base64_encode(random_bytes($length)));
+        
+        return $this;
+    }
+    
+    public function getVisibleActions(){
+        $actions = array();
+        foreach ($this->messages as $message){
+            if($message->getMessageLevel()->getVisible()){
+                $actions = array_merge($message->getActions());
+            }
+        }
+        return $actions;
+    }
+    
+    /**
+    * @ORM\PreUpdate
+    * @ORM\PrePersist
+    */
+    public function setModified()
+    {
+        $this->dateModified = new \DateTime();      
     }
     
     /**
@@ -140,4 +166,165 @@ class Device
     }
 
    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Device
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set dateValidated
+     *
+     * @param \DateTime $dateValidated
+     *
+     * @return Device
+     */
+    public function setDateValidated($dateValidated)
+    {
+        $this->dateValidated = $dateValidated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateValidated
+     *
+     * @return \DateTime
+     */
+    public function getDateValidated()
+    {
+        return $this->dateValidated;
+    }
+
+    /**
+     * Set dateLastAccess
+     *
+     * @param \DateTime $dateLastAccess
+     *
+     * @return Device
+     */
+    public function setDateLastAccess($dateLastAccess)
+    {
+        $this->dateLastAccess = $dateLastAccess;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLastAccess
+     *
+     * @return \DateTime
+     */
+    public function getDateLastAccess()
+    {
+        return $this->dateLastAccess;
+    }
+
+    /**
+     * Set key
+     *
+     * @param string $key
+     *
+     * @return Device
+     */
+    public function setKey($key)
+    {
+        $this->key = $key;
+
+        return $this;
+    }
+
+    /**
+     * Get key
+     *
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Frontend\AdminBundle\Entity\User $user
+     *
+     * @return Device
+     */
+    public function setUser(\Frontend\AdminBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Frontend\AdminBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Add message
+     *
+     * @param \Backend\APIBundle\Entity\Message $message
+     *
+     * @return Device
+     */
+    public function addMessage(\Backend\APIBundle\Entity\Message $message)
+    {
+        $this->messages[] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Remove message
+     *
+     * @param \Backend\APIBundle\Entity\Message $message
+     */
+    public function removeMessage(\Backend\APIBundle\Entity\Message $message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
 }

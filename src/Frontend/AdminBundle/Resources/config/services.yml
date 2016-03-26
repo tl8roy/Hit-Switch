@@ -1,4 +1,5 @@
 services:
-    a0_user_provider:
-        class: FrontendAdminBundle\Security\A0UserProvider
-        arguments: ["@jwt_auth.auth0_service", "@doctrine"]
+    hwi_oauth.user.provider.entity:
+        class: Frontend\AdminBundle\Security\A0UserProvider
+        arguments: ["@session", "@doctrine", %user_admin%]
+        

@@ -1,0 +1,52 @@
+{% extends "FrontendAdminBundle::layout.html.twig" %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %} 
+    <h2>My Profile</h2>
+    <br />
+    <ul data-tabs class="tabs">
+        <li><a data-tab href="#devices">Devices</a></li>
+        <li><a data-tab href="#actions">Actions</a></li>
+        <li><a data-tab href="#log">Log</a></li>
+        <li><a data-tab href="#settings">Settings</a></li>
+    </ul>
+
+    <div class="tabs-holder" data-tabs-content>
+        <div data-tabs-pane class="tabs-pane active" id="devices">
+            {% include 'FrontendAdminBundle::Secured/devices.html.twig' %}
+        </div>
+        <div data-tabs-pane class="tabs-pane" id="actions">
+            {% include 'FrontendAdminBundle::Secured/actionList.html.twig' %}
+            {% include 'FrontendAdminBundle::Secured/actionEdit.html.twig' %}
+        </div>
+        <div data-tabs-pane class="tabs-pane" id="log">
+            {% include 'FrontendAdminBundle::Secured/messagelog.html.twig' %}
+        </div>
+        <div data-tabs-pane class="tabs-pane" id="settings">
+            {% include 'FrontendAdminBundle::Secured/settings.html.twig' %}
+        </div>
+    </div>
+
+
+
+{% endblock %}
+{% block foot %}
+    <script type="text/javascript" src="{{ asset("bundles/frontendadmin/js/tabby.min.js") }}"></script>
+    <script>
+    tabby.init();
+    
+    {#tabby.init({
+    selectorToggle: '[data-tab]', // Tab toggle selector
+    selectorToggleGroup: '[data-tabs]', // Tab toggle group selector
+    selectorContent: '[data-tabs-pane]', // Tab content selector
+    selectorContentGroup: '[data-tabs-content]', // Tab content group selector
+    toggleActiveClass: 'active', // Class added to active toggle elements
+    contentActiveClass: 'active', // Class added to active tab content areas
+    initClass: 'js-tabby', // Class added to <html> element when initiated
+    callback: function () {} // Function that's run after tab content is toggled
+});#}
+    
+</script>
+<script type="text/javascript" src="{{ asset("bundles/frontendadmin/js/device.js") }}"></script>
+{% endblock %}

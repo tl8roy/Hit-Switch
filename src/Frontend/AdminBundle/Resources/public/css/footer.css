@@ -1,58 +1,67 @@
 footer{
-	background-color: #292c2f;
-	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
-	box-sizing: border-box;
-	width: 100%;
-	text-align: center;
-	font: normal 18px sans-serif;
+    background-color: #292c2f;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
 
-	padding: 45px;
-	margin-top: 80px;
+    padding: 2rem;
+    margin-top: 3rem;
+
+    position: fixed;
+    bottom: 0;
+        
 }
 
 footer p.footer-company-motto{
-	color:  #8d9093;
-	font-size: 24px;
-	margin: 0;
+    color:  #8d9093;
+    font-size: 1.3rem;
+    margin: 0;
 }
 
 footer p.footer-company-name{
-	color:  #8f9296;
-	font-size: 14px;
-	margin: 0;
+    color:  #8f9296;
+    font-size: 0.8rem;
+    margin: 0;
 }
 
 footer p.footer-links{
-	list-style: none;
-	font-weight: bold;
-	color:  #ffffff;
-	padding: 35px 0 23px;
-	margin: 0;
+    list-style: none;
+    font-weight: bold;
+    color:  #ffffff;
+    padding: 1rem 0 1rem;
+    margin: 0;
 }
 
 footer p.footer-links a{
-	display:inline-block;
-	text-decoration: none;
-	color: inherit;
+    display:inline-block;
+    color: inherit;
+    padding: 0.5rem 0.5rem;
+    opacity: 0.8;
 }
 
-@media (max-width: 48em) {
+footer p.footer-links a:hover{
+    opacity: 1;
+    text-decoration: underline;
+}
+
+@media (max-width: 48rem) {
   
     footer{
-            padding: 35px;
+            padding: 1.5rem;
     }
 
     footer p.footer-company-motto{
-            font-size: 18px;
+            font-size: 1rem;
     }
 
     footer p.footer-company-name{
-            font-size: 12px;
+            font-size: 0.7rem;
     }
 
     footer p.footer-links{
-            font-size: 14px;
-            padding: 25px 0 20px;
+            font-size: 0.8rem;
+            padding: 1.3rem 0 1.1rem;
     }
 
     footer p.footer-links a{

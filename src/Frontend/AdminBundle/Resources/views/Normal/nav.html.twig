@@ -1,0 +1,19 @@
+{% for page in pages %}
+    {{location == 'upper'?'<li>'}}
+        <a href='{{path('cms_index',{'slug':page.slug})}}'> {{page.name}}</a>
+    {{location == 'upper'?'</li>'}}  
+{% endfor %}
+    {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}{#IS_AUTHENTICATED_REMEMBERED#}
+        {{location == 'upper'?'<li>'}}
+            <a href='{{path('user_profile')}}'>
+                My Profile
+            </a>
+        {{location == 'upper'?'</li>'}} 
+        
+        {% if is_granted('ROLE_ADMIN') and location == 'upper'%}
+            <li><a href='{#path('admin_settings')#}'>Settings</a></li> 
+        {% endif %}
+        {{location == 'upper'?'<li>'}}<a href='/logout'>Logout</a>{{location == 'upper'?'</li>'}} 
+    {% else %}
+        {{location == 'upper'?'<li>'}}<a class="button-login" onclick="window.signin();">Login</a>{{location == 'upper'?'</li>'}} 
+    {% endif %}

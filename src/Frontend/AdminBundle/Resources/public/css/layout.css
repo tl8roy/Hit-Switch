@@ -1,3 +1,21 @@
+@charset "UTF-8";
+
+/* ------------------------------------------
+  RESET
+--------------------------------------------- */
+
+body, div,
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, dl, dt, dd, ol, ul, li, hr,
+fieldset, form, label, legend, th, td,
+article, aside, figure, footer, header, hgroup, menu, nav, section,
+summary, hgroup {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+
 body {
     color: #777;
     font-family: 'Lato', sans-serif;
@@ -30,12 +48,10 @@ This is the parent `<div>` that contains the menu and the content area.
 /*
 The content `<div>` is where all your content goes.
 */
-.content {
-    margin: 0 auto;
-    padding: 0 2em;
-    max-width: 800px;
-    margin-bottom: 50px;
-    line-height: 1.6em;
+#content {
+    margin: 2rem auto;
+    padding: 0 0;
+    max-width: 80em;
 }
 
 /* -- Responsive Styles (Media Queries) ------------------------------------- */
@@ -50,10 +66,90 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 }
 
+ul.tabs {
+    list-style-type: none;
+    box-sizing: border-box;    
+    
+    margin-bottom: 0.5rem;
+    margin-left: 1.5rem;
+}
+
+ul.tabs li{
+    display: inline; 
+    background-color: #292c2f;
+    padding:0.5rem;
+    border: 0.2rem #292c2f solid;
+    box-sizing: border-box;
+    border-top-right-radius: 1em;
+    border-top-left-radius: 1em;
+    outline: none;
+}
+
+ul.tabs li a{
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+ul.tabs li.active{
+    display: inline; 
+    background-color: #fff;
+    border-bottom-color: #fff;
+}
+
+ul.tabs li.active a.active{
+    color: #292c2f; /* override above */
+}
 
 
 
+.tabs-holder {
+    clear: both;
+    box-sizing: border-box;
+    border: 0.2rem #292c2f solid;
+    border-radius: 1em;
+}
+.tabs-holder .active{
+    padding:1rem;    
+}
 
+/* -------------------------------------------------------------------------- */
+/* Specififc Styles */
+.button-login {
+    cursor: pointer;
+}
 
+.pure-g .heading{
+    font-weight: bold;
+}
 
+.button-config{
+    background-color: purple;
+    color:white;
+}
 
+.button-device-edit{
+    background-color: skyblue;
+}
+
+.button-device-add{
+    background-color: royalblue;
+    color:white;
+}
+
+.button-device-save{
+    background-color: greenyellow;
+}
+
+.button-device-validate{
+    background-color: #ccc;
+}
+
+.grid-device{
+    background-color: #eff4ff;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    color: #333;
+    margin:0.5rem;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 5px -3px rgba(0,0,0,0.75);
+}

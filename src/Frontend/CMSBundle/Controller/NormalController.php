@@ -25,7 +25,7 @@ class NormalController extends Controller
     {
         
         $cmspage = $this->getDoctrine()
-                ->getRepository('CMSBundle:Cmspage')
+                ->getRepository('FrontendCMSBundle:Cmspage')
                 ->findOneBy(array('name' => $slug));
         
         if (!($cmspage instanceof Cmspage)) {
@@ -51,13 +51,12 @@ class NormalController extends Controller
      *      defaults     = { "slug" = "index" },
      *      methods      = { "GET" }
      *      )
-     * Cache(lastModified="cmspage.getDateModified()")
      */
     public function indexAction(Request $request,$slug)
     {
         $cmspage = $this->getDoctrine()
-                ->getRepository('CMSBundle:Cmspage')
-                ->findOneBy(array('name' => $slug));
+                ->getRepository('FrontendCMSBundle:Cmspage')
+                ->findOneBy(array('slug' => $slug));
         
         if (!($cmspage instanceof Cmspage)) {
             throw $this->createNotFoundException('This page does not exist');
@@ -65,17 +64,19 @@ class NormalController extends Controller
         
         $response = new Response();
         $response->setLastModified($cmspage->getDateModified());
+        $response->setPublic();
+
         if ($response->isNotModified($request)) {
             return $response;
         }
         
-        if($cmspage->getName() === 'index' ){
+        if($cmspage->getSlug() === 'index' ){
             $pageTemplate = 'index';
         } else {
             $pageTemplate = 'cmspage';
         }
         
-        return $this->render('Frontend:CMSBundle:Normal:'.$pageTemplate.'.html.twig',array('cmspage' => $cmspage));
+        return $this->render('FrontendCMSBundle:Normal:'.$pageTemplate.'.html.twig',array('cmspage' => $cmspage));
     }
     
 }

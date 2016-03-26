@@ -7,19 +7,19 @@
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+        <link rel="apple-itouch-icon" href="/apple-touch-icon.png"> 
 
         <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,300' rel='stylesheet' type='text/css'>
         
-        <link rel="stylesheet" href="{{ asset("bundles/frontend/admin/css/pikaday.min.css") }}"/>
-        <link rel="stylesheet" href="{{ asset("bundles/frontend/admin/css/pure.min.css") }}"/>
-        <link rel="stylesheet" href="{{ asset("bundles/frontend/admin/css/grids-responsive.min.css") }}"/>
-        <link rel="stylesheet" href="{{ asset("bundles/frontend/admin/css/responsive-nav.css") }}"/>
+        <link rel="stylesheet" href="{{ asset("bundles/frontendadmin/css/pikaday.min.css") }}"/>
+        <link rel="stylesheet" href="{{ asset("bundles/frontendadmin/css/tabby.min.css") }}"/>
+        <link rel="stylesheet" href="{{ asset("bundles/frontendadmin/css/pure.min.css") }}"/>
+        <link rel="stylesheet" href="{{ asset("bundles/frontendadmin/css/grids-responsive.min.css") }}"/>
         
-        <link rel="stylesheet" href="{{ asset("bundles/frontend/admin/css/layout.css") }}"/>
-        <link rel="stylesheet" href="{{ asset("bundles/frontend/admin/css/header.css") }}"/>
-        <link rel="stylesheet" href="{{ asset("bundles/frontend/admin/css/footer.css") }}"/>
-        <link rel="stylesheet" href="{{ asset("bundles/frontend/admin/css/blocks.css") }}"/>
-        <link rel="stylesheet" href="{{ asset("bundles/frontend/admin/css/navigation.css") }}"/>
+        <link rel="stylesheet" href="{{ asset("bundles/frontendadmin/css/layout.css") }}"/>
+        <link rel="stylesheet" href="{{ asset("bundles/frontendadmin/css/header.css") }}"/>
+        <link rel="stylesheet" href="{{ asset("bundles/frontendadmin/css/footer.css") }}"/>
+        <link rel="stylesheet" href="{{ asset("bundles/frontendadmin/css/blocks.css") }}"/>
         
         {% block head %}
         {% endblock %}
@@ -30,11 +30,14 @@
         <div id="layout">
             <header>
                 <div class="header-limiter">
-                    <h1><a href="#">Company<span>logo</span><img width="240" height="42" src="{{ asset("bundles/rewards/images/helloworld-logo.png") }}" /></a></h1>
+                    <h1><a href="{{path('index')}}"><img width="80" height="80" src="{{ asset("bundles/frontendadmin/img/logo.png") }}" /><span>Hit Switch</span></a></h1>
                     
                     <nav class="nav-collapse">
                         <ul>
-                            <li><a href="/" class="active">Home</a></li>
+                            {{ render(controller(
+                                'FrontendAdminBundle:User:nav',
+                                { 'location': 'upper' }
+                            )) }}
                         </ul>
                     </nav>
                 </div>
@@ -48,25 +51,37 @@
             <footer>
                 <p class="footer-company-motto">Hit Switch</p>
                 <p class="footer-links">
-                        <a href="#">Home</a>
-                        ·
-                        <a href="#">Blog</a>
-                        ·
-                        <a href="#">Pricing</a>
-                        ·
-                        <a href="#">About</a>
-                        ·
-                        <a href="#">Faq</a>
-                        ·
-                        <a href="#">Contact</a>
+                        {{ render(controller(
+                                'FrontendAdminBundle:User:nav',
+                                { 'location': 'lower' }
+                            )) }}
                 </p>
                 <p class="footer-company-name">tl8.co &copy; {{"now"|date('Y')}}</p>
             </footer>
 
-            <script type="text/javascript" src="{{ asset("bundles/rewards/js/jquery.min.js") }}"></script>
-            <script type="text/javascript" src="{{ asset("bundles/rewards/js/moment.min.js") }}"></script>
-            <script type="text/javascript" src="{{ asset("bundles/rewards/js/pikaday.min.js") }}"></script>
-            <script type="text/javascript" src="{{ asset("bundles/rewards/js/responsive-nav.js") }}"></script>
+            <script type="text/javascript" src="{{ asset("bundles/frontendadmin/js/jquery.min.js") }}"></script>
+            <script type="text/javascript" src="{{ asset("bundles/frontendadmin/js/moment.min.js") }}"></script>
+            <script type="text/javascript" src="{{ asset("bundles/frontendadmin/js/pikaday.min.js") }}"></script>
+            
+            <script type="text/javascript" src="{{ asset("bundles/frontendadmin/js/responsive-nav.min.js") }}"></script>
+            
+            <!--script src="//cdn.auth0.com/js/lock-9.x.y.min.js"></script-->
+            <script src="https://cdn.auth0.com/js/lock-9.0.min.js"></script>
+            <script>
+                var lock = new Auth0Lock("{{auth0_client_id}}", "{{auth0_domain}}");
+                function signin() {
+                  lock.show({
+                      callbackURL: ''
+                    , primaryColor: '#5383d3'
+                    , icon: '{{ asset("bundles/frontendadmin/img/logo.png") }}'
+                    , responseType: 'code'
+                    , authParams: {
+                      scope: 'openid profile'
+                    }
+                  });
+                }
+            </script>
+            
             <script>
                 var navigation = responsiveNav(".nav-collapse", {
                     animate: true,                    // Boolean: Use CSS3 transitions, true or false
@@ -84,7 +99,7 @@
                     close: function(){}               // Function: Close callback
                 });
             </script>
-            <script>
+            {#<script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -93,7 +108,7 @@
               ga('create', 'UA-74241249-1', 'auto');
               ga('send', 'pageview');
 
-            </script>
+            </script>#}
             {% block foot %}
             {% endblock %}
         </div>

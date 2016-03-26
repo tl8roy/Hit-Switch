@@ -1,0 +1,85 @@
+<h3>Your Devices</h3>
+<div class="pure-g">
+    {% for device in devices %}
+        <div class="pure-u-1-1 grid-device">
+            <div class="pure-g">
+                <div class="pure-u-1-1 pure-u-md-1-4 heading">{{device.name}}</div>
+                <div class="pure-u-1-1 pure-u-md-1-4 heading">
+                    Status:
+                    {% if device.active and device.dateLastAccess is not empty and device.dateValidated is not empty %}
+                        Active
+                    {% elseif device.active and device.dateLastAccess is not empty and device.dateValidated is empty %}     
+                        Waiting for you to validate
+                    {% elseif device.active and device.dateLastAccess is empty and device.dateValidated is empty %} 
+                        Waiting on Device to start validation process
+                    {% else %}
+                        Inactive
+                    {% endif %}    
+                </div>
+                <div class="pure-u-1-1 pure-u-md-1-4 heading">{{device.visibleActions|length}} Active Actions</div>
+                <div class="pure-u-1-1 pure-u-md-1-4 heading"> 
+                    {% if device.dateLastAccess is not empty%}
+                        Last Accessed API: {{device.dateLastAccess|date('d/m/Y')}}
+                    {% endif %}
+                </div>
+
+                <div class="pure-u-1-1 pure-u-md-1-3">
+                    <button class="pure-button button-device-edit" 
+                            data-device="{{device.id}}"
+                            data-name="{{device.name}}"
+                            data-active="{{device.active}}"
+                            data-access-key="{{device.key}}"
+                    >
+                        Edit
+                    </button>
+                </div>
+                <div class="pure-u-1-1 pure-u-md-1-3">
+                    <a class="pure-button button-config" download="hit-switch.cfg" data-access-key="{{device.key}}">
+                        Generate Device Config
+                    </a>
+                </div>
+                <div class="pure-u-1-1 pure-u-md-1-3">
+                    {% if device.dateLastAccess is not empty and device.dateValidated is empty %}
+                        <a class="pure-button button-device-validate">Validate</a>
+                    {% endif %}
+                </div>
+
+                <div id="device-full-column-{{device.id}}" class="pure-u-1-1 ">
+                    {% include 'FrontendAdminBundle::Secured/actionList.html.twig' %}
+                </div>
+
+            </div>
+        </div>
+    {% endfor %}
+    <div class="pure-u-1-1"><button class="pure-button button-device-add">Add New Device</button></div>
+</div>
+<div id="editor-device" class="hidden">
+    <form method="post" class="pure-form pure-form-aligned">
+        <div class="pure-g">
+            <div class="pure-u-1-1 pure-u-md-1-3">
+                <div class="pure-control-group">
+                    <label for="device-name">Name</label>
+                    <input id="device-name" name="name" placeholder="Name" required/>
+                </div>
+            </div>
+            <div class="pure-u-1-1 pure-u-md-1-3">
+                <div class="pure-control-group">
+                    <label for="device-active">Active</label>
+                    <input id="device-active" name="active" type="checkbox" value="true"/>
+                </div>
+            </div>
+            
+            <div class="pure-u-1-1 pure-u-md-1-3">
+                <div class="pure-control-group">
+                    <label for="device-key">Device Key</label>
+                    <input id="device-key" placeholder="Device Key"/><input id="device-reset-key" name="reset_key" type="checkbox" value="true"/>
+                </div>
+            </div>
+            
+            <div class="pure-u-1-1">
+                <button class="pure-button button-device-save">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+

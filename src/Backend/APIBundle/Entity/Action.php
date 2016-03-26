@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Action
  *
- * @ORM\Table(name="action")
+ * @ORM\Table(name="hs_action")
  * @ORM\Entity(repositoryClass="Backend\APIBundle\Repository\ActionRepository")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -58,7 +58,7 @@ class Action
     /**
      * @var Object
      *
-     * @ORM\Column(name="parameters", type="json_array")
+     * @ORM\Column(name="parameters", type="json_array",nullable=true)
      */
     private $parameters;
     
@@ -128,4 +128,117 @@ class Action
     }
 
    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Action
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set parameters
+     *
+     * @param array $parameters
+     *
+     * @return Action
+     */
+    public function setParameters($parameters)
+    {
+        $this->parameters = $parameters;
+
+        return $this;
+    }
+
+    /**
+     * Get parameters
+     *
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Frontend\AdminBundle\Entity\User $user
+     *
+     * @return Action
+     */
+    public function setUser(\Frontend\AdminBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Frontend\AdminBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Add message
+     *
+     * @param \Backend\APIBundle\Entity\Message $message
+     *
+     * @return Action
+     */
+    public function addMessage(\Backend\APIBundle\Entity\Message $message)
+    {
+        $this->messages[] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Remove message
+     *
+     * @param \Backend\APIBundle\Entity\Message $message
+     */
+    public function removeMessage(\Backend\APIBundle\Entity\Message $message)
+    {
+        $this->messages->removeElement($message);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
 }

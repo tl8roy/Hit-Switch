@@ -21,13 +21,6 @@ class Message
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
     
     /**
      * @var \DateTime
@@ -68,12 +61,13 @@ class Message
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_last_access", type="datetime")
+     * @ORM\Column(name="date_last_access", type="datetime",nullable=true)
      */
     private $dateLastAccess;
 
     /**
     * @ORM\PreUpdate
+    * @ORM\PrePersist
     */
     public function setModified()
     {
@@ -127,28 +121,166 @@ class Message
         return $this->dateModified;
     }
 
+   
     /**
-     * Set name
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->actions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set token
      *
-     * @param string $name
+     * @param string $token
+     *
      * @return Message
      */
-    public function setName($name)
+    public function setToken($token)
     {
-        $this->name = $name;
+        $this->token = $token;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get token
      *
-     * @return string 
+     * @return string
      */
-    public function getName()
+    public function getToken()
     {
-        return $this->name;
+        return $this->token;
     }
 
-   
+    /**
+     * Set tokenExpiry
+     *
+     * @param \DateTime $tokenExpiry
+     *
+     * @return Message
+     */
+    public function setTokenExpiry($tokenExpiry)
+    {
+        $this->tokenExpiry = $tokenExpiry;
+
+        return $this;
+    }
+
+    /**
+     * Get tokenExpiry
+     *
+     * @return \DateTime
+     */
+    public function getTokenExpiry()
+    {
+        return $this->tokenExpiry;
+    }
+
+    /**
+     * Set dateLastAccess
+     *
+     * @param \DateTime $dateLastAccess
+     *
+     * @return Message
+     */
+    public function setDateLastAccess($dateLastAccess)
+    {
+        $this->dateLastAccess = $dateLastAccess;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLastAccess
+     *
+     * @return \DateTime
+     */
+    public function getDateLastAccess()
+    {
+        return $this->dateLastAccess;
+    }
+
+    /**
+     * Set device
+     *
+     * @param \Backend\APIBundle\Entity\Device $device
+     *
+     * @return Message
+     */
+    public function setDevice(\Backend\APIBundle\Entity\Device $device = null)
+    {
+        $this->device = $device;
+
+        return $this;
+    }
+
+    /**
+     * Get device
+     *
+     * @return \Backend\APIBundle\Entity\Device
+     */
+    public function getDevice()
+    {
+        return $this->device;
+    }
+
+    /**
+     * Set messagesLevel
+     *
+     * @param \Backend\APIBundle\Entity\MessageLevel $messagesLevel
+     *
+     * @return Message
+     */
+    public function setMessagesLevel(\Backend\APIBundle\Entity\MessageLevel $messagesLevel = null)
+    {
+        $this->messagesLevel = $messagesLevel;
+
+        return $this;
+    }
+
+    /**
+     * Get messagesLevel
+     *
+     * @return \Backend\APIBundle\Entity\MessageLevel
+     */
+    public function getMessagesLevel()
+    {
+        return $this->messagesLevel;
+    }
+
+    /**
+     * Add action
+     *
+     * @param \Backend\APIBundle\Entity\Action $action
+     *
+     * @return Message
+     */
+    public function addAction(\Backend\APIBundle\Entity\Action $action)
+    {
+        $this->actions[] = $action;
+
+        return $this;
+    }
+
+    /**
+     * Remove action
+     *
+     * @param \Backend\APIBundle\Entity\Action $action
+     */
+    public function removeAction(\Backend\APIBundle\Entity\Action $action)
+    {
+        $this->actions->removeElement($action);
+    }
+
+    /**
+     * Get actions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActions()
+    {
+        return $this->actions;
+    }
 }

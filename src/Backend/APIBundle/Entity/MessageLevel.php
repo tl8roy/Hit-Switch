@@ -83,4 +83,76 @@ class MessageLevel
     }
 
    
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     *
+     * @return MessageLevel
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set visible
+     *
+     * @param boolean $visible
+     *
+     * @return MessageLevel
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Set current
+     *
+     * @param boolean $current
+     *
+     * @return MessageLevel
+     */
+    public function setCurrent($current)
+    {
+        $this->current = $current;
+
+        return $this;
+    }
+
+    /**
+     * Get current
+     *
+     * @return boolean
+     */
+    public function getCurrent()
+    {
+        return $this->current;
+    }
 }

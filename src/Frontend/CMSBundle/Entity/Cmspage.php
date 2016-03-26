@@ -35,6 +35,27 @@ class Cmspage
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
+    
+    /**
+     * @var string
+     *
+     * ORM\Column(name="sort", type="integer")
+     */
+    private $sort;
+    
+    /**
+     * @var string
+     *
+     * ORM\Column(name="menu_visibility", type="string", length=32)
+     */
+    private $menu;
 
     /**
      * @var string
@@ -129,5 +150,29 @@ class Cmspage
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Cmspage
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

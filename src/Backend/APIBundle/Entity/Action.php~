@@ -1,0 +1,131 @@
+<?php
+
+namespace Backend\APIBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Action
+ *
+ * @ORM\Table(name="action")
+ * @ORM\Entity(repositoryClass="Backend\APIBundle\Repository\ActionRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Action
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_modified", type="datetime")
+     */
+    private $dateModified;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="active", type="boolean")
+     */
+    private $active = true;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Frontend\AdminBundle\Entity\User",inversedBy="actions")
+     */
+    private $user;
+    
+    /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="Message")
+     */
+    private $messages;
+
+    /**
+     * @var Object
+     *
+     * @ORM\Column(name="parameters", type="json_array",nullable=true)
+     */
+    private $parameters;
+    
+
+    /**
+    * @ORM\PreUpdate
+    */
+    public function setModified()
+    {
+        $this->dateModified = new \DateTime();      
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dateModified
+     *
+     * @param \DateTime $dateModified
+     * @return Cmspage
+     */
+    public function setDateModified($dateModified)
+    {
+        $this->dateModified = $dateModified;
+
+        return $this;
+    }
+
+    /**
+     * Get dateModified
+     *
+     * @return \DateTime 
+     */
+    public function getDateModified()
+    {
+        return $this->dateModified;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Action
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+   
+}
